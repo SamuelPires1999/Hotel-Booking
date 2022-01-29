@@ -1,6 +1,11 @@
-import add from './math/add';
-import dotenv from 'dotenv-safe';
+import Express from 'express';
 
-dotenv.config();
+const main = async () => {
+  const app = Express();
 
-console.log(add(1, 5));
+  app.listen(3000, () => {
+    console.log('App is listening on port 3000');
+  });
+};
+
+main();
