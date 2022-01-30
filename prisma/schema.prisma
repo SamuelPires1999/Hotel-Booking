@@ -11,38 +11,46 @@ datasource db {
 }
 
 model Hotel {
-  id         Int      @id @default(autoincrement())
-  name       String
-  rating     Int
-  city       String
-  address    String
-  rooms      Room[]
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  name        String
+  rating      Int
+  city        String
+  address     String
+  daily_price Float
+  rooms       Room[]
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 }
 
 model Room {
-  id         Int      @id @default(autoincrement())
-  hotel      Hotel    @relation(fields: [hotel_id], references: [id])
+  id         Int       @id @default(autoincrement())
+  hotel      Hotel     @relation(fields: [hotel_id], references: [id])
   hotel_id   Int
   number     Int
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  bookings   Booking[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
 }
 
 model Booking {
   id         Int      @id @default(dbgenerated())
+  client     Client   @relation(fields: [client_id], references: [id])
+  client_id  Int
+  room       Room     @relation(fields: [room_id], references: [id])
+  room_id    Int
   check_in   DateTime
   check_out  DateTime
+  status     String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
 model Client {
-  id         Int      @id @default(dbgenerated())
+  id         Int       @id @default(dbgenerated())
   cpf        String
   first_name String
   last_name  String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  bookings   Booking[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
 }
