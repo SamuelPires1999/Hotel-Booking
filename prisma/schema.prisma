@@ -47,7 +47,7 @@ model Booking {
 
 model Client {
   id         Int       @id @default(dbgenerated())
-  cpf        String
+  cpf        String    @unique
   first_name String
   last_name  String
   bookings   Booking[]
